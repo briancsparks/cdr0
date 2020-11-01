@@ -1,5 +1,5 @@
 {
-  "name": "summon",
+  "name": "@cdr0/summon",
   "version": "0.1.0",
   "private": true,
   "scripts": {
