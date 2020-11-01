@@ -1,6 +1,4 @@
 
-// const { inspect } = require('util');
-
 const router                  = require('koa-router')();
 const AWS                     = require('aws-sdk');
 
