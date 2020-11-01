@@ -1,85 +1,23 @@
 # cdr0
 Monorepo for cdr0 org
 
-## Commands
+This repository contains the helper code to run the cdr0 data-center.
 
-To do various things, do these.
+* terraform-json - A NodeJs helper package to build JSON that Terraform likes.
+* summon - A small JSON REST server that runs on each instance, and allows it
+  to retrieve various information and files that it needs.
 
-[See Also this article](https://medium.com/@jsilvax/a-workflow-guide-for-lerna-with-yarn-workspaces-60f97481149d)
-for other lerna commands like `publish`. [This is also good.](https://medium.com/hy-vee-engineering/creating-a-monorepo-with-lerna-yarn-workspaces-cf163908965d)
+## Summon
 
+In the same way that the AWS infrastructure provices _instance data_ at 169.254.169.254,
+`summon` provides various information, and files.
 
-#### Run NPM Scripts
+* /s3/get/bucket/k/e/y/filename - Gets the file from S3.
+  * Does not require that the AWS tools are installed on the instance to access S3.
 
-Generally, append `lerna` to the command you want to do.
+## Terraform-json
 
-```sh
-# Run a development server for the summon project (from root)
-lerna run dev --scope summon
-```
-
-#### Run Any Command in each Package
-
-```shell script
-lerna exec -- npm ls -depth 0
-lerna exec -- rm -rf node_modules
-```
-
-#### Reset
-
-This will remove all intermediate files, and rebuild everything.
-
-```sh
-# From root
-lerna clean && lerna link && lerna bootstrap
-```
-
-#### Updating Packages
-
-https://www.npmjs.com/package/lerna-update-wizard
-
-Command line interface for simplifying the process of bulk updating dependencies across multiple Lerna or Yarn Workspace packages.
-
-
-
-```shell script
-# Once
-npm i -S lerna-update-wizard
-
-# To update
-lernaupdate
-```
-
--or-
-
-```shell script
-npx lerna-update-wizard
-```
-
-## Setup
-
-I already had it setup to use NPM, but then found a good article on Lerna and
-Yarn v1.
-
-https://medium.com/@jsilvax/a-workflow-guide-for-lerna-with-yarn-workspaces-60f97481149d
-
-To setup the original project (just summon).
-
-```sh
-# To get project setup
-cd ${SOMEWHERE}/cdr0
-
-npx lerna init --independent
-koa2 packages/summon
-gi node > .gitignore
-
-git add .
-git commit -am first
-
-# Now that it is setup
-lerna bootstrap
-
-# Test that Koa Runs
-lerna run dev --scope summon
-```
+A package that lets you use JavaScript to build your Terraform definitions, and generates
+the JSON that would be equivalent to the HCL that you want. (Probably should have been
+called JSON-HCL or something.)
 
