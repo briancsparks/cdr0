@@ -25,5 +25,11 @@
   },
   "bugs": {
     "url": "https://github.com/briancsparks/cdr0/issues"
+  },
+  "dependencies": {
+    "ceconfig": "^1.0.7",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express.io": "^1.1.13"
   }
 }

@@ -15,11 +15,15 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
 // app.set('port', port);
 
+
+
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app.callback());
+
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -32,7 +36,8 @@ server.on('listening', onListening);
 
 
 
-
+// ----------------------------------------------------------------------------------------------------------
+// Help
 
 /**
  * Normalize a port into a number, string, or false.
