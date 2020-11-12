@@ -10,6 +10,10 @@ const s3 = new AWS.S3();
 
 router.prefix('/s3');
 
+
+// For eample,
+// curl 'http://localhost:3000/s3/get/quick-net/deploy/cdr0-net/startup-scripts/install-aws'
+//
 router.get('/get/*', async function (ctx, next) {
 
   // quick-net/deploy/cdr0-net/startup-scripts/install-nodejs
