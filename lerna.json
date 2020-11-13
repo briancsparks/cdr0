@@ -1,6 +1,6 @@
 {
   "packages": [
-    "packages/*"
+    "pub-packages/*", "site-packages/*"
   ],
   "version": "independent",
   "stream": true,
