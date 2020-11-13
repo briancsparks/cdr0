@@ -1,5 +1,5 @@
 {
-  "name": "@cdr0/summon",
+  "name": "@cdr0/matcher",
   "version": "0.1.3",
   "private": true,
   "dependencies": {
