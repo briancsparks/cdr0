@@ -415,159 +415,159 @@ sg.nag_if = function(condition, msg_, arg0, ...args) {
   console.warn(..._.compact([msg, arg0 &&  sg.inspect({...arg0}), (args.length > 0) && sg.inspect([...args])]));
 };
 
-/**
- *  Just like setTimeout, but with the parameters in the right order.
- */
-sg.setTimeout = function(ms, cb) {
-  return setTimeout(cb, ms);
-};
+// /**
+//  *  Just like setTimeout, but with the parameters in the right order.
+//  */
+// sg.setTimeout = function(ms, cb) {
+//   return setTimeout(cb, ms);
+// };
 
-sg.firstKey = function(obj) {
-  for (var k in obj) {
-    return k;
-  }
-  return;
-};
+// sg.firstKey = function(obj) {
+//   for (var k in obj) {
+//     return k;
+//   }
+//   return;
+// };
+//
+// sg.numKeys = function(obj) {
+//   var num = 0;
+//   for (var k in obj) {
+//     num++;
+//   }
+//
+//   return num;
+// };
 
-sg.numKeys = function(obj) {
-  var num = 0;
-  for (var k in obj) {
-    num++;
-  }
-
-  return num;
-};
-
-/**
- *  Build {k:v}
- */
-var kv = sg.kv = function(o, k, v) {
-  if (arguments.length === 2) {
-    return kv(null, o, k);
-  }
-
-  o = o || {};
-
-  if (isnt(k))              { return o; }
-  if (_.isUndefined(v))     { return o; }
-
-  o[k] = v;
-  return o;
-};
-
-/**
- *  Build {key:k, vName:v}
- */
-var kkvv = sg.kkvv = function(o, k, v, vName) {
-  if (arguments.length === 2) {
-    return kkvv(null, o, k, 'value');
-  }
-
-  if (arguments.length === 3) {
-    return kkvv(null, o, k, v);
-  }
-
-  o         = o || {};
-  o.key     = k;
-  o[vName]  = v;
-
-  return o;
-};
-
-/**
- *  Build {k:v}, where the key is a dotted-key
- */
-var dottedKv = sg.dottedKv = function(o, k, v) {
-  if (arguments.length === 2) {
-
-    if (_.isArray(o)) { return dottedKv(null, o.join('.'), k); }
-    return kv(null, o, k);
-  }
-
-  if (_.isArray(k)) { return dottedKv(o, k.join('.'), v); }
-
-  o = o || {};
-  o[k] = v;
-  return o;
-};
-
-/**
- *  Build [v]
- *
- *  Just like kv(), so you can return ap(m, 42) or ap(42).
- *
- *  Will fizzle on null or undefined values.
- *
- * @param {Array}       a     - The array to add to.
- * @param {*}           v     - The value.
- * @param {...Object}   rest  - More values.
- *
- * @returns {Array}           - The augmented array.
- */
-var ap = sg.ap = function(a, v, ...rest) {
-  if (arguments.length === 1)   { return sg.ap(null, arguments[0]); }
-
-  a = a || [];
-
-  if (!_.isUndefined(v)) {
-    a.push(v);
-  }
-
-  if (rest.length > 0) {
-    return ap(a, ...rest);
-  }
-
-  return a;
-};
-
-/**
- *  Pushes the item into the array, and returns the index of where it got
- *  pushed at.
- *
- *  If x is undefined, `_push()` will not push it, and returns undefined.
- */
-sg.push = function(arr, x) {
-  if (_.isUndefined(x))     { return x; }
-
-  var length = arr.length;
-
-  arr.push(x);
-
-  return length;
-};
-sg._push = sg.push;
-
-/**
- *  Returns the keys of an object.
- *
- *  Just like _.keys, except it will return null or undefined if given an
- *  input that isnt().
- */
-sg.keys = function(x) {
-  if (isnt(x))            { return x; }
-
-  return _.keys(x);
-};
-
-/**
- *  Makes an object where the key for each item is the same as the value.
- */
-sg.keyMirror = function(x, sep) {
-  var result = {};
-
-  if (isnt(x))            { return x; }
-
-  if (_.isString(x))      { return sg.keyMirror(x.split(sep || ',')); }
-  if (sg.isObject(x))     { return sg.keyMirror(_.keys(x)); }
-
-  if (!_.isArray(x))      { return result; }
-
-  _.each(x, function(item) {
-    result[item] = item;
-  });
-
-  return result;
-};
+// /**
+//  *  Build {k:v}
+//  */
+// var kv = sg.kv = function(o, k, v) {
+//   if (arguments.length === 2) {
+//     return kv(null, o, k);
+//   }
+//
+//   o = o || {};
+//
+//   if (isnt(k))              { return o; }
+//   if (_.isUndefined(v))     { return o; }
+//
+//   o[k] = v;
+//   return o;
+// };
+//
+// /**
+//  *  Build {key:k, vName:v}
+//  */
+// var kkvv = sg.kkvv = function(o, k, v, vName) {
+//   if (arguments.length === 2) {
+//     return kkvv(null, o, k, 'value');
+//   }
+//
+//   if (arguments.length === 3) {
+//     return kkvv(null, o, k, v);
+//   }
+//
+//   o         = o || {};
+//   o.key     = k;
+//   o[vName]  = v;
+//
+//   return o;
+// };
+//
+// /**
+//  *  Build {k:v}, where the key is a dotted-key
+//  */
+// var dottedKv = sg.dottedKv = function(o, k, v) {
+//   if (arguments.length === 2) {
+//
+//     if (_.isArray(o)) { return dottedKv(null, o.join('.'), k); }
+//     return kv(null, o, k);
+//   }
+//
+//   if (_.isArray(k)) { return dottedKv(o, k.join('.'), v); }
+//
+//   o = o || {};
+//   o[k] = v;
+//   return o;
+// };
+//
+// /**
+//  *  Build [v]
+//  *
+//  *  Just like kv(), so you can return ap(m, 42) or ap(42).
+//  *
+//  *  Will fizzle on null or undefined values.
+//  *
+//  * @param {Array}       a     - The array to add to.
+//  * @param {*}           v     - The value.
+//  * @param {...Object}   rest  - More values.
+//  *
+//  * @returns {Array}           - The augmented array.
+//  */
+// var ap = sg.ap = function(a, v, ...rest) {
+//   if (arguments.length === 1)   { return sg.ap(null, arguments[0]); }
+//
+//   a = a || [];
+//
+//   if (!_.isUndefined(v)) {
+//     a.push(v);
+//   }
+//
+//   if (rest.length > 0) {
+//     return ap(a, ...rest);
+//   }
+//
+//   return a;
+// };
+//
+// /**
+//  *  Pushes the item into the array, and returns the index of where it got
+//  *  pushed at.
+//  *
+//  *  If x is undefined, `_push()` will not push it, and returns undefined.
+//  */
+// sg.push = function(arr, x) {
+//   if (_.isUndefined(x))     { return x; }
+//
+//   var length = arr.length;
+//
+//   arr.push(x);
+//
+//   return length;
+// };
+// sg._push = sg.push;
+//
+// /**
+//  *  Returns the keys of an object.
+//  *
+//  *  Just like _.keys, except it will return null or undefined if given an
+//  *  input that isnt().
+//  */
+// sg.keys = function(x) {
+//   if (isnt(x))            { return x; }
+//
+//   return _.keys(x);
+// };
+//
+// /**
+//  *  Makes an object where the key for each item is the same as the value.
+//  */
+// sg.keyMirror = function(x, sep) {
+//   var result = {};
+//
+//   if (isnt(x))            { return x; }
+//
+//   if (_.isString(x))      { return sg.keyMirror(x.split(sep || ',')); }
+//   if (sg.isObject(x))     { return sg.keyMirror(_.keys(x)); }
+//
+//   if (!_.isArray(x))      { return result; }
+//
+//   _.each(x, function(item) {
+//     result[item] = item;
+//   });
+//
+//   return result;
+// };
 
 // /**
 //  *  Is the parameter strictly an Object (and not an Array, or Date, or ...).
@@ -581,63 +581,63 @@ sg.keyMirror = function(x, sep) {
 //   return true;
 // };
 //
-/**
- * Returns the object, if it is truly an Object, or `def` otherwise.
- *
- * This allows:
- *
- * ```javascript
- *
- *  sg.objekt(x) || {}
- *  sg.objekt(x, {})
- *  sg.objekt(x, {}).attr
- *
- * ```
- *
- * @param {Object|null|undefined} x -- The Object to test
- * @param {*} def                   -- The default
- *
- * @returns {Object|null|undefined|def}
- */
-sg.objekt = function(x, def) {
-  if (isObject(x))  { return x; }
-  return def;
-};
-var objekt = sg.objekt;
-
-/**
- *  Always returns an Object.
- *
- * * {}  -> x
- * * []  -> {items:x}
- * * *   -> {just:x}
- *
- * @param {*}       x   -- The thing to Object-ify.
- * @param {string}  key -- The object key (replacing `items` or `just`)
- * @returns {Object}
- */
-sg.asObject = function(x, key) {
-  if (isObject(x))          { return x; }
-  if (Array.isArray(x))     { return {[key || 'items']:x}; }
-  if (sg.isnt(x))           { return {}; }
-
-  return {[key || 'just']:x};
-};
-var asObject = sg.asObject;
-
-/**
- *
- */
-var isPod = sg.isPod = function(x) {
-  if (_.isString(x))            { return true; }
-  if (_.isNumber(x))            { return true; }
-  if (_.isBoolean(x))           { return true; }
-  if (_.isDate(x))              { return true; }
-  if (_.isRegExp(x))            { return true; }
-
-  return false;
-};
-
+// /**
+//  * Returns the object, if it is truly an Object, or `def` otherwise.
+//  *
+//  * This allows:
+//  *
+//  * ```javascript
+//  *
+//  *  sg.objekt(x) || {}
+//  *  sg.objekt(x, {})
+//  *  sg.objekt(x, {}).attr
+//  *
+//  * ```
+//  *
+//  * @param {Object|null|undefined} x -- The Object to test
+//  * @param {*} def                   -- The default
+//  *
+//  * @returns {Object|null|undefined|def}
+//  */
+// sg.objekt = function(x, def) {
+//   if (isObject(x))  { return x; }
+//   return def;
+// };
+// var objekt = sg.objekt;
+//
+// /**
+//  *  Always returns an Object.
+//  *
+//  * * {}  -> x
+//  * * []  -> {items:x}
+//  * * *   -> {just:x}
+//  *
+//  * @param {*}       x   -- The thing to Object-ify.
+//  * @param {string}  key -- The object key (replacing `items` or `just`)
+//  * @returns {Object}
+//  */
+// sg.asObject = function(x, key) {
+//   if (isObject(x))          { return x; }
+//   if (Array.isArray(x))     { return {[key || 'items']:x}; }
+//   if (sg.isnt(x))           { return {}; }
+//
+//   return {[key || 'just']:x};
+// };
+// var asObject = sg.asObject;
+//
+// /**
+//  *
+//  */
+// var isPod = sg.isPod = function(x) {
+//   if (_.isString(x))            { return true; }
+//   if (_.isNumber(x))            { return true; }
+//   if (_.isBoolean(x))           { return true; }
+//   if (_.isDate(x))              { return true; }
+//   if (_.isRegExp(x))            { return true; }
+//
+//   return false;
+// };
+//
 // /**
 //  *  Returns `true` if the item is one of the things in JavaScript that cannot
 //  *  be manipulated (`null`, `undefined`, `NaN`).
@@ -660,86 +660,86 @@ var isPod = sg.isPod = function(x) {
 //   });
 // };
 //
-/**
- *  Returns true if the item is a valid item (that you can manipulate and use the value.)
- *
- * @param {*} x
- * @returns true or false
- */
-is = exports.is = function(x) {
-  return x || (x===0) || (x==='') || (x===false);
-};
-
-/**
- *  Is the value in the list-as-a-sting.
- *
- *  strList : 'a,foo,barbaz'
- *  value   : 'a'
- *
- *  Must do ',a,foo,barbaz,'.indexOf(...)
- */
-sg.inList = function(strList, value, sep_) {
-  var sep = sep_ || ',';
-
-  var surrounded = sep + strList + sep;
-  return surrounded.indexOf(sep + value + sep) !== -1;
-};
-
-/**
- *  Makes the key a valid identifier (letter, digit, or underscore).
- */
-sg.cleanKey = function(key) {
-  return key.replace(/[^a-zA-Z0-9_]/g, '_');
-};
-
-/**
- * Split on newline for both *nix and Windows.
- *
- * @param {*} string
- * @returns
- */
-sg.splitLn = function(string) {
-  return string.split(/\r?\n/g);
-};
-
-/**
- * Returns the word with the first char lowercased.
- *
- * @param {*} str
- */
-sg.toLowerWord = function(str) {
-  return str[0].toLowerCase() + sg.rest(str);
-};
-
-/**
- * Returns the word with the first char uppercased.
- *
- * @param {*} str
- */
-sg.toUpperWord = function(str) {
-  return str[0].toUpperCase() + sg.rest(str).join('');
-};
-
-/**
- * Returns if the string or char is lower case.
- *
- * @param {*} str
- * @returns
- */
-sg.isLowerCase = function(str) {
-  return str === str.toLowerCase();
-};
-
-/**
- * Returns if the string or char is upper case.
- *
- * @param {*} str
- * @returns
- */
-sg.isUpperCase = function(str) {
-  return str === str.toUpperCase();
-};
-
+// /**
+//  *  Returns true if the item is a valid item (that you can manipulate and use the value.)
+//  *
+//  * @param {*} x
+//  * @returns true or false
+//  */
+// is = exports.is = function(x) {
+//   return x || (x===0) || (x==='') || (x===false);
+// };
+//
+// /**
+//  *  Is the value in the list-as-a-sting.
+//  *
+//  *  strList : 'a,foo,barbaz'
+//  *  value   : 'a'
+//  *
+//  *  Must do ',a,foo,barbaz,'.indexOf(...)
+//  */
+// sg.inList = function(strList, value, sep_) {
+//   var sep = sep_ || ',';
+//
+//   var surrounded = sep + strList + sep;
+//   return surrounded.indexOf(sep + value + sep) !== -1;
+// };
+//
+// /**
+//  *  Makes the key a valid identifier (letter, digit, or underscore).
+//  */
+// sg.cleanKey = function(key) {
+//   return key.replace(/[^a-zA-Z0-9_]/g, '_');
+// };
+//
+// /**
+//  * Split on newline for both *nix and Windows.
+//  *
+//  * @param {*} string
+//  * @returns
+//  */
+// sg.splitLn = function(string) {
+//   return string.split(/\r?\n/g);
+// };
+//
+// /**
+//  * Returns the word with the first char lowercased.
+//  *
+//  * @param {*} str
+//  */
+// sg.toLowerWord = function(str) {
+//   return str[0].toLowerCase() + sg.rest(str);
+// };
+//
+// /**
+//  * Returns the word with the first char uppercased.
+//  *
+//  * @param {*} str
+//  */
+// sg.toUpperWord = function(str) {
+//   return str[0].toUpperCase() + sg.rest(str).join('');
+// };
+//
+// /**
+//  * Returns if the string or char is lower case.
+//  *
+//  * @param {*} str
+//  * @returns
+//  */
+// sg.isLowerCase = function(str) {
+//   return str === str.toLowerCase();
+// };
+//
+// /**
+//  * Returns if the string or char is upper case.
+//  *
+//  * @param {*} str
+//  * @returns
+//  */
+// sg.isUpperCase = function(str) {
+//   return str === str.toUpperCase();
+// };
+//
 // /**
 //  *  Makes x the right type.
 //  */
@@ -774,26 +774,26 @@ sg.isUpperCase = function(str) {
 //   }, {});
 // };
 //
-/**
- *  Build {k:v}, but do not set the value if k or v are undefined/null.
- *
- *  This allows passing in undefined, and getting the original object
- *  back, without mods.
- */
-var kvSmart = sg.kvSmart = function(o, k, v) {
-  if (arguments.length === 2) {
-    return kvSmart(null, o, k);
-  }
-
-  o = o || {};
-
-  if (!isnt(k) && !isnt(v)) {
-    o[sg.cleanKey(k)] = smartValue(v);
-  }
-
-  return o;
-};
-
+// /**
+//  *  Build {k:v}, but do not set the value if k or v are undefined/null.
+//  *
+//  *  This allows passing in undefined, and getting the original object
+//  *  back, without mods.
+//  */
+// var kvSmart = sg.kvSmart = function(o, k, v) {
+//   if (arguments.length === 2) {
+//     return kvSmart(null, o, k);
+//   }
+//
+//   o = o || {};
+//
+//   if (!isnt(k) && !isnt(v)) {
+//     o[sg.cleanKey(k)] = smartValue(v);
+//   }
+//
+//   return o;
+// };
+//
 /**
  * Returns a smaller object, suitable for debug logging.
  *
@@ -822,187 +822,187 @@ exports.smallItems = function(obj, key = 'items') {
   return {...obj, [key]: arr};
 };
 exports.small = exports.smallItems;
-
-/**
- *  Gets a sub-sub-key.
- */
-var deref = sg.deref = function(x, keys_) {
-  if (isnt(x))      { return; /* undefined */ }
-  if (isnt(keys_))  { return; /* undefined */ }
-
-  var keys    = _.isArray(keys_) ? keys_.slice() : keys_.split('.'), key;
-  var result  = x;
-
-  while (keys.length > 0) {
-    key = keys.shift();
-    if (!(result = result[key])) {
-      // We got a falsy result.  If this was the last item, return it (so, for example
-      // we would return a 0 (zero) if looked up.
-      if (keys.length === 0) { return result; }
-
-      /* otherwise -- return undefined */
-      return; /* undefined */
-    }
-  }
-
-  return result;
-};
-
-/**
- *  Sets value on object (this is the workhorse for , setOna.)
- *
- *  Returns the sanitized keys, or false.
- */
-var _setOnIt = function(x, keys_, value) {
-  if (isnt(x) || isnt(keys_) || isnt(value))  { return false; }
-
-  var keys  = _.isArray(keys_) ? keys_ : keys_.split('.').map(function(x) { return x==='' ? null: x; });
-
-  if (anyIsnt(keys))                          { return false; }
-
-  return keys;
-};
-
-/**
- *  Sets sub-sub-key of object, and always returns the passed-in value.
- *
- *  setOn(x, 'foo.bar.baz', 42)
- *
- *  x = {foo:{bar:{baz:42}}}
- *
- *  Does not set the sub-object if value is undefined. This allows:
- *
- *      // if abc is not set on  options, x.foo.bar.baz does not get set
- *      setOn(x, 'foo.bar.baz', options.abc);
- */
-var setOn = sg.setOn = function(x, keys_, value) {
-  var keys = _setOnIt(x, keys_, value);
-  if (keys === false)                       { return value; }
-
-  var owner = x, key;
-
-  while (keys.length > 1) {
-    key = keys.shift();
-    owner[key] = owner[key] || {};
-    owner = owner[key];
-  }
-
-  if (!isnt(key = keys.shift())) {
-    owner[key] = value;
-  }
-
-  return value;
-};
-
-
-/**
- *  Sets sub-sub-key of object as an array, and always returns the passed-in value.
- *
- *  setOna(x, 'foo.bar.baz', 42)
- *
- *  x = {foo:{bar:{baz:[42]}}}
- *
- *  Does not set the sub-object if value is undefined. This allows:
- *
- *      // if abc is not set on  options, x.foo.bar.baz does not get set
- *      setOn(x, 'foo.bar.baz', options.abc);
- */
-var setOna = sg.setOna = function(x, keys_, value) {
-  var keys = _setOnIt(x, keys_, value);
-  if (keys === false)                       { return value; }
-
-  var owner = x, key;
-
-  while (keys.length > 1) {
-    key           = keys.shift();
-    if (isnt(owner[key])) {
-      owner[key]  = _.isNumber(keys[0]) ? [] : {};
-    }
-    owner         = owner[key];
-  }
-
-  if (!isnt(key = keys.shift())) {
-    owner[key] = owner[key] || [];
-    owner[key].push(value);
-  }
-
-  return value;
-};
-
-/**
- * Merges `aug` into each top-level property of `all`.
- *
- * If `aug` is a string, it is a key into `all`.
- *
- * @param {*} aug
- * @param {*} all
- * @returns
- */
-sg.augmentAllWith = function(aug, all) {
-  if (_.isString(aug))  { return sg.augmentAllWith(all[aug], all); }
-
-  return sg.reduce(all, {}, function(m, v, k) {
-    return sg.kv(m, k, sg.merge(aug, v));
-  });
-};
-
-/**
- * Returns obj[key].
- *
- * sg.choose('a', {a:42}) --> 42
- * sg.choose('a.b', {a:{b:42}}) --> 42
- * sg.choose('x.z', ['key', {key:{z:42},x:{w:'dubya'}}]) --> sg.choose('x.key.z', {key:{z:42},x:{w:'dubya',z:42}}) --> 42
- * sg.choose('x.z', [{z:42},{x:{w:'dubya'}}]) --> sg.choose('x.z', {x:{w:'dubya',z:42}}) --> 42
- *
- * sg.choose('debug', ['prod', {prod:{res:42},debug:{msg:'leak info!'}}]) --> sg.choose('debug', {prod:{res:42},debug:{msg:'leak info!',res:42}}) --> {msg:'leak info!',res:42}
- *
- * @param {*} key
- * @param {*} obj
- * @returns
- */
-sg.choose = function(key, obj) {
-  if (_.isArray(obj)) {
-    return sg.choose(key, sg.augmentAllWith(...obj));
-  }
-
-  return sg.deref(obj, key);
-};
-
-/**
- * Converts to boolean.
- *
- * @param {*} value
- * @returns
- */
-sg.trueOrFalse = function(value_) {
-  var value = value_;
-  if (value === true || value === false)  { return value; }
-  if (value === 'true')                   { return true; }
-  if (value === 'false')                  { return false; }
-
-  if (_.isString(value)) { value = +value; }    // Convert to number
-  return !!value;
-};
-sg.tf = sg.trueOrFalse;   // alias
-
-/**
- *  Just like _.each, except adds three params to the callback:
- *
- *  * The numeric index (call invocation number)
- *  * first
- *  * last
- */
-sg.each = sg._each = function(collection, fn, context) {
-  var numericIndex = 0;
-  var length = collection.length || sg.numKeys(collection);
-
-  _.each(collection, function(element, index, coll) {
-    var args = [element, index, {collection: coll, i:numericIndex, first:(numericIndex === 0), last:(numericIndex+1 === length), length:length}];
-    numericIndex += 1;
-    return fn.apply(this, args);
-  }, context);
-};
-
+//
+// /**
+//  *  Gets a sub-sub-key.
+//  */
+// var deref = sg.deref = function(x, keys_) {
+//   if (isnt(x))      { return; /* undefined */ }
+//   if (isnt(keys_))  { return; /* undefined */ }
+//
+//   var keys    = _.isArray(keys_) ? keys_.slice() : keys_.split('.'), key;
+//   var result  = x;
+//
+//   while (keys.length > 0) {
+//     key = keys.shift();
+//     if (!(result = result[key])) {
+//       // We got a falsy result.  If this was the last item, return it (so, for example
+//       // we would return a 0 (zero) if looked up.
+//       if (keys.length === 0) { return result; }
+//
+//       /* otherwise -- return undefined */
+//       return; /* undefined */
+//     }
+//   }
+//
+//   return result;
+// };
+//
+// /**
+//  *  Sets value on object (this is the workhorse for , setOna.)
+//  *
+//  *  Returns the sanitized keys, or false.
+//  */
+// var _setOnIt = function(x, keys_, value) {
+//   if (isnt(x) || isnt(keys_) || isnt(value))  { return false; }
+//
+//   var keys  = _.isArray(keys_) ? keys_ : keys_.split('.').map(function(x) { return x==='' ? null: x; });
+//
+//   if (anyIsnt(keys))                          { return false; }
+//
+//   return keys;
+// };
+//
+// /**
+//  *  Sets sub-sub-key of object, and always returns the passed-in value.
+//  *
+//  *  setOn(x, 'foo.bar.baz', 42)
+//  *
+//  *  x = {foo:{bar:{baz:42}}}
+//  *
+//  *  Does not set the sub-object if value is undefined. This allows:
+//  *
+//  *      // if abc is not set on  options, x.foo.bar.baz does not get set
+//  *      setOn(x, 'foo.bar.baz', options.abc);
+//  */
+// var setOn = sg.setOn = function(x, keys_, value) {
+//   var keys = _setOnIt(x, keys_, value);
+//   if (keys === false)                       { return value; }
+//
+//   var owner = x, key;
+//
+//   while (keys.length > 1) {
+//     key = keys.shift();
+//     owner[key] = owner[key] || {};
+//     owner = owner[key];
+//   }
+//
+//   if (!isnt(key = keys.shift())) {
+//     owner[key] = value;
+//   }
+//
+//   return value;
+// };
+//
+//
+// /**
+//  *  Sets sub-sub-key of object as an array, and always returns the passed-in value.
+//  *
+//  *  setOna(x, 'foo.bar.baz', 42)
+//  *
+//  *  x = {foo:{bar:{baz:[42]}}}
+//  *
+//  *  Does not set the sub-object if value is undefined. This allows:
+//  *
+//  *      // if abc is not set on  options, x.foo.bar.baz does not get set
+//  *      setOn(x, 'foo.bar.baz', options.abc);
+//  */
+// var setOna = sg.setOna = function(x, keys_, value) {
+//   var keys = _setOnIt(x, keys_, value);
+//   if (keys === false)                       { return value; }
+//
+//   var owner = x, key;
+//
+//   while (keys.length > 1) {
+//     key           = keys.shift();
+//     if (isnt(owner[key])) {
+//       owner[key]  = _.isNumber(keys[0]) ? [] : {};
+//     }
+//     owner         = owner[key];
+//   }
+//
+//   if (!isnt(key = keys.shift())) {
+//     owner[key] = owner[key] || [];
+//     owner[key].push(value);
+//   }
+//
+//   return value;
+// };
+//
+// /**
+//  * Merges `aug` into each top-level property of `all`.
+//  *
+//  * If `aug` is a string, it is a key into `all`.
+//  *
+//  * @param {*} aug
+//  * @param {*} all
+//  * @returns
+//  */
+// sg.augmentAllWith = function(aug, all) {
+//   if (_.isString(aug))  { return sg.augmentAllWith(all[aug], all); }
+//
+//   return sg.reduce(all, {}, function(m, v, k) {
+//     return sg.kv(m, k, sg.merge(aug, v));
+//   });
+// };
+//
+// /**
+//  * Returns obj[key].
+//  *
+//  * sg.choose('a', {a:42}) --> 42
+//  * sg.choose('a.b', {a:{b:42}}) --> 42
+//  * sg.choose('x.z', ['key', {key:{z:42},x:{w:'dubya'}}]) --> sg.choose('x.key.z', {key:{z:42},x:{w:'dubya',z:42}}) --> 42
+//  * sg.choose('x.z', [{z:42},{x:{w:'dubya'}}]) --> sg.choose('x.z', {x:{w:'dubya',z:42}}) --> 42
+//  *
+//  * sg.choose('debug', ['prod', {prod:{res:42},debug:{msg:'leak info!'}}]) --> sg.choose('debug', {prod:{res:42},debug:{msg:'leak info!',res:42}}) --> {msg:'leak info!',res:42}
+//  *
+//  * @param {*} key
+//  * @param {*} obj
+//  * @returns
+//  */
+// sg.choose = function(key, obj) {
+//   if (_.isArray(obj)) {
+//     return sg.choose(key, sg.augmentAllWith(...obj));
+//   }
+//
+//   return sg.deref(obj, key);
+// };
+//
+// /**
+//  * Converts to boolean.
+//  *
+//  * @param {*} value
+//  * @returns
+//  */
+// sg.trueOrFalse = function(value_) {
+//   var value = value_;
+//   if (value === true || value === false)  { return value; }
+//   if (value === 'true')                   { return true; }
+//   if (value === 'false')                  { return false; }
+//
+//   if (_.isString(value)) { value = +value; }    // Convert to number
+//   return !!value;
+// };
+// sg.tf = sg.trueOrFalse;   // alias
+//
+// /**
+//  *  Just like _.each, except adds three params to the callback:
+//  *
+//  *  * The numeric index (call invocation number)
+//  *  * first
+//  *  * last
+//  */
+// sg.each = sg._each = function(collection, fn, context) {
+//   var numericIndex = 0;
+//   var length = collection.length || sg.numKeys(collection);
+//
+//   _.each(collection, function(element, index, coll) {
+//     var args = [element, index, {collection: coll, i:numericIndex, first:(numericIndex === 0), last:(numericIndex+1 === length), length:length}];
+//     numericIndex += 1;
+//     return fn.apply(this, args);
+//   }, context);
+// };
+//
 /**
  * Like _.reduce, but the parameters are in the right places.
  *
@@ -1129,49 +1129,49 @@ sg.reduceFirst = function(collection, initial, fn) {
   });
 };
 
-/**
- * Restore rest().
- *
- * @returns
- */
-sg.rest = function() {
-  return _.drop.apply(_, arguments);
-};
-
-/**
- * Restore max().
- *
- * @returns
- */
-sg.max = function() {
-  if (arguments.length === 1) {
-    return _.max.apply(_, arguments);
-  }
-  return _.maxBy.apply(_, arguments);
-};
-
-/**
- * Restore min().
- *
- * @returns
- */
-sg.min = function() {
-  if (arguments.length === 1) {
-    return _.min.apply(_, arguments);
-  }
-  return _.minBy.apply(_, arguments);
-};
-
-/**
- * Restore compact.
- *
- * @param {*} arr
- * @returns
- */
-sg.compact = function(arr) {
-  return arr.filter(Boolean);
-};
-
+// /**
+//  * Restore rest().
+//  *
+//  * @returns
+//  */
+// sg.rest = function() {
+//   return _.drop.apply(_, arguments);
+// };
+//
+// /**
+//  * Restore max().
+//  *
+//  * @returns
+//  */
+// sg.max = function() {
+//   if (arguments.length === 1) {
+//     return _.max.apply(_, arguments);
+//   }
+//   return _.maxBy.apply(_, arguments);
+// };
+//
+// /**
+//  * Restore min().
+//  *
+//  * @returns
+//  */
+// sg.min = function() {
+//   if (arguments.length === 1) {
+//     return _.min.apply(_, arguments);
+//   }
+//   return _.minBy.apply(_, arguments);
+// };
+//
+// /**
+//  * Restore compact.
+//  *
+//  * @param {*} arr
+//  * @returns
+//  */
+// sg.compact = function(arr) {
+//   return arr.filter(Boolean);
+// };
+//
 // From https://github.com/lodash/lodash/wiki/Migrating
 sg.pluck        = _.map;
 sg.head         = _.take;
@@ -1218,52 +1218,52 @@ sg.smartExtend = function() {
   args.unshift({});
   return _.extend.apply(_, args);
 };
-
-/**
- *  Merge objects.
- */
-sg.merge = function() {
-  var args = sg.reduce(arguments, [], function(m, arg) {
-    return sg.ap(m, sg.reduce(arg, {}, function(m, value, key) {
-      return sg.kv(m, key, value);
-    }));
-  });
-
-  args.unshift({});
-  return _.extend.apply(_, args);
-};
-
-/**
- * Pulls the item out of the object and returns it.
- *
- * @param {*} collection_
- * @param {*} name
- * @returns
- */
-sg.extract = function(collection_, name) {
-  var collection  = collection_ || {};
-  var value       = collection[name];
-
-  delete collection[name];
-  return value;
-};
-
-/**
- * Pulls the items out of the object and returns a new object with those items.
- *
- * @param {*} collection
- * @returns
- */
-sg.extracts = function(collection /*, names... */) {
-  var names  = _.drop(arguments);
-  var result = {};
-
-  _.each(names, function(name) {
-    result[name] = sg.extract(collection, name);
-  });
-
-  return result;
-};
+//
+// /**
+//  *  Merge objects.
+//  */
+// sg.merge = function() {
+//   var args = sg.reduce(arguments, [], function(m, arg) {
+//     return sg.ap(m, sg.reduce(arg, {}, function(m, value, key) {
+//       return sg.kv(m, key, value);
+//     }));
+//   });
+//
+//   args.unshift({});
+//   return _.extend.apply(_, args);
+// };
+//
+// /**
+//  * Pulls the item out of the object and returns it.
+//  *
+//  * @param {*} collection_
+//  * @param {*} name
+//  * @returns
+//  */
+// sg.extract = function(collection_, name) {
+//   var collection  = collection_ || {};
+//   var value       = collection[name];
+//
+//   delete collection[name];
+//   return value;
+// };
+//
+// /**
+//  * Pulls the items out of the object and returns a new object with those items.
+//  *
+//  * @param {*} collection
+//  * @returns
+//  */
+// sg.extracts = function(collection /*, names... */) {
+//   var names  = _.drop(arguments);
+//   var result = {};
+//
+//   _.each(names, function(name) {
+//     result[name] = sg.extract(collection, name);
+//   });
+//
+//   return result;
+// };
 
 /**
  *  Make sure the item is an array.

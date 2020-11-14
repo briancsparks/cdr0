@@ -1,0 +1,22 @@
+{
+  "name": "@cdr0/ceconfig",
+  "version": "1.0.0",
+  "description": "Comprehensive Easy Configuration",
+  "main": "index.js",
+  "bin": {
+    "ceconfig": "./bin/ceconfig.js"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/briancsparks/cdr0.git"
+  },
+  "author": "Brian C Sparks <briancsparks@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/briancsparks/cdr0/tree/develop/pub-packages/ceconfig",
+  "devDependencies": {
+    "ava": "^3.13.0"
+  }
+}
