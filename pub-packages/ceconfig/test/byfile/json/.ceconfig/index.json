@@ -17,8 +17,7 @@
   "license": "MIT",
   "homepage": "https://github.com/briancsparks/cdr0/tree/develop/pub-packages/ceconfig",
   "dependencies": {
-    "@cdr0/sg": "^1.0.0",
-    "@cdr0/sgfs": "^1.0.0"
+    "@cdr0/sg": "^1.0.0"
   },
   "devDependencies": {
     "ava": "^3.13.0"

@@ -3,10 +3,15 @@ const fs                      = require('fs');
 const path                    = require('path');
 const util                    = require('util');
 const sg                      = require('@cdr0/sg');
+const { addEntryFns }         = require('./entry');
 
 module.exports.File = function(filesystem, path) {
   let self = this;
   self.path = path;
+
+  self.pathname = function() {
+    return self.path;
+  };
 
   // So user can set a convienent name
   self.setName = function(name) {
@@ -74,4 +79,6 @@ module.exports.File = function(filesystem, path) {
       return require(self.path);
     } catch(e) {}
   };
+
+  addEntryFns(self, filesystem, path);
 };

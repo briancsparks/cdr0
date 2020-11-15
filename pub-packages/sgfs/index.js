@@ -1,12 +1,17 @@
 
+const sg                      = require('@cdr0/sg/extend');
 const the                     = require('@cdr0/the');
 
-module.exports = the('sgfs_Filesystem', () => {
+const { File }                = require('./lib/file');
+const { Dir }                 = require('./lib/dir');
+
+module.exports = sg.extend(
+    require('./lib/walk')
+);
+
+module.exports.fs = the('sgfs_Filesystem', () => {
   return new Filesystem();
 })();
-
-const { Dir }     = require('./lib/dir');
-const { File }    = require('./lib/file');
 
 function Filesystem() {
   let self = this;

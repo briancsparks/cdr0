@@ -14,6 +14,7 @@
   "license": "MIT",
   "homepage": "https://github.com/briancsparks/cdr0/tree/develop/pub-packages/sgfs",
   "dependencies": {
+    "@cdr0/sg": "^1.0.0",
     "@cdr0/the": "^1.0.0"
   },
   "devDependencies": {

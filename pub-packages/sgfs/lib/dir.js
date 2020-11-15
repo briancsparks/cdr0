@@ -2,11 +2,16 @@
 const fs                      = require('fs');
 const path                    = require('path');
 const util                    = require('util');
+const { addEntryFns }         = require('./entry');
 const sg                      = require('@cdr0/sg');
 
 module.exports.Dir = function(filesystem, path_) {
   let self = this;
   self.path = path_ || process.cwd();
+
+  self.pathname = function() {
+    return self.path;
+  };
 
   // So user can set a convienent name
   self.setName = function(name) {
@@ -14,6 +19,10 @@ module.exports.Dir = function(filesystem, path_) {
   };
 
   self.cd = self.dir = function(...relativePaths) {
+    if (relativePaths.length === 0) {
+      return this;
+    }
+
     const newPath = path.join(self.path, ...relativePaths);
     return filesystem.dir(newPath);
   };
@@ -55,4 +64,6 @@ module.exports.Dir = function(filesystem, path_) {
   };
 
   self.async.writeFile = util.promisify(self.writeFile);
+
+  addEntryFns(self, filesystem, path);
 };
